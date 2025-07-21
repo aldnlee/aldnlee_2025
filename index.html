@@ -323,7 +323,26 @@
 
         /* Music effect */
 
-   
+      #musicToggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+#musicToggle:hover {
+  background: #ddd;
+}
 
 
         @keyframes clickPulse {
@@ -386,24 +405,17 @@
     </div>
 
     <!-- YouTube music (hidden) -->
-<!-- YouTube music (hidden) -->
-<iframe
-  id="musicPlayer"
-  width="0"
-  height="0"
-  src="https://www.youtube.com/embed/K4DyBUG242c?autoplay=1&loop=1&playlist=K4DyBUG242c"
-  title="YouTube Music"
-  frameborder="0"
-  allow="autoplay"
-  allowfullscreen>
-</iframe>
 
 <!-- Music Toggle Button -->
 <button id="musicToggle" title="Toggle Music">🔊</button>
 
+<audio id="bgMusic" loop autoplay muted>
+  <source src="tarot.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
-
-
+<!-- Music Toggle Button -->
+<button id="musicToggle" title="Toggle Music">🔊</button>
 
     <script>
         // Add interactive functionality
@@ -459,7 +471,28 @@
 
 
         // Music toggle functionality
-        
+       const audio = document.getElementById("bgMusic");
+  const toggleBtn = document.getElementById("musicToggle");
+
+  // Unmute and play on load
+  window.addEventListener('load', () => {
+    audio.muted = false;
+    audio.play().catch(() => {
+      // Auto-play might be blocked until user interacts
+      toggleBtn.textContent = '🔇';
+    });
+  });
+
+  toggleBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      toggleBtn.textContent = "🔊";
+    } else {
+      audio.pause();
+      toggleBtn.textContent = "🔇";
+    }
+  });
+
     </script>
 </body>
 </html>
