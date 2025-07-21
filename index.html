@@ -322,27 +322,53 @@
         }
 
         /* Music effect */
+ #musicToggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-      #musicToggle {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 1000;
-  background: #fff;
-  color: #000;
-  border: none;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
+        #musicToggle:hover {
+            background: #ddd;
+            transform: scale(1.05);
+        }
 
-#musicToggle:hover {
-  background: #ddd;
-}
+        #musicToggle.playing {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .audio-status {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .audio-status.show {
+            opacity: 1;
+        }
 
 
         @keyframes clickPulse {
@@ -405,17 +431,18 @@
     </div>
 
     <!-- YouTube music (hidden) -->
+<!-- Audio Status Display -->
+    <div id="audioStatus" class="audio-status">Click to enable audio</div>
 
-<!-- Music Toggle Button -->
-<button id="musicToggle" title="Toggle Music">🔊</button>
+    <!-- Music Toggle Button (Single instance) -->
+    <button id="musicToggle" title="Toggle Music">🔇</button>
 
-<audio id="bgMusic" loop autoplay muted>
-  <source src="tarot.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+    <!-- Demo Audio (placeholder - replace with your tarot.mp3) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="tarot.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
-<!-- Music Toggle Button -->
-<button id="musicToggle" title="Toggle Music">🔊</button>
 
     <script>
         // Add interactive functionality
@@ -471,27 +498,134 @@
 
 
         // Music toggle functionality
-       const audio = document.getElementById("bgMusic");
-  const toggleBtn = document.getElementById("musicToggle");
+      // Audio and UI elements
+        const audio = document.getElementById("bgMusic");
+        const toggleBtn = document.getElementById("musicToggle");
+        const audioStatus = document.getElementById("audioStatus");
+        let isPlaying = false;
 
-  // Unmute and play on load
-  window.addEventListener('load', () => {
-    audio.muted = false;
-    audio.play().catch(() => {
-      // Auto-play might be blocked until user interacts
-      toggleBtn.textContent = '🔇';
-    });
-  });
+        // Show initial status
+        setTimeout(() => {
+            audioStatus.classList.add('show');
+            setTimeout(() => audioStatus.classList.remove('show'), 3000);
+        }, 1000);
 
-  toggleBtn.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.play();
-      toggleBtn.textContent = "🔊";
-    } else {
-      audio.pause();
-      toggleBtn.textContent = "🔇";
-    }
-  });
+        // Music toggle functionality
+        toggleBtn.addEventListener("click", async () => {
+            try {
+                if (isPlaying) {
+                    audio.pause();
+                    toggleBtn.textContent = "🔇";
+                    toggleBtn.classList.remove('playing');
+                    showStatus("Music paused");
+                    isPlaying = false;
+                } else {
+                    await audio.play();
+                    toggleBtn.textContent = "🔊";
+                    toggleBtn.classList.add('playing');
+                    showStatus("Music playing");
+                    isPlaying = true;
+                }
+            } catch (error) {
+                console.log("Audio playback failed:", error);
+                showStatus("Audio not available");
+                toggleBtn.textContent = "❌";
+            }
+        });
+
+        // Status message function
+        function showStatus(message) {
+            audioStatus.textContent = message;
+            audioStatus.classList.add('show');
+            setTimeout(() => audioStatus.classList.remove('show'), 2000);
+        }
+
+        // Audio event listeners
+        audio.addEventListener('loadstart', () => {
+            console.log('Audio loading started');
+        });
+
+        audio.addEventListener('canplaythrough', () => {
+            console.log('Audio can play through');
+            showStatus("Audio ready - click button to play");
+        });
+
+        audio.addEventListener('error', (e) => {
+            console.log('Audio error:', e);
+            showStatus("Audio file not found");
+            toggleBtn.textContent = "❌";
+        });
+
+        // Interactive functionality for sections
+        document.querySelectorAll('.clickable').forEach((section, index) => {
+            section.addEventListener('click', (e) => {
+                // Prevent event bubbling from buttons/links
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+                    return;
+                }
+                
+                console.log(`Clicked on ${e.target.closest('.clickable').querySelector('span').textContent}`);
+                
+                // Add click animation
+                section.classList.add('clicked');
+                setTimeout(() => {
+                    section.classList.remove('clicked');
+                }, 600);
+
+                // Try to start audio on first user interaction
+                if (!isPlaying && audio.readyState >= 2) {
+                    toggleBtn.click();
+                }
+            });
+
+            // Add keyboard support
+            section.setAttribute('tabindex', '0');
+            
+            section.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    section.click();
+                }
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const sections = document.querySelectorAll('.clickable');
+            const focused = document.activeElement;
+            const currentIndex = Array.from(sections).indexOf(focused);
+
+            let nextIndex = currentIndex;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                    nextIndex = (currentIndex + 1) % sections.length;
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    nextIndex = (currentIndex - 1 + sections.length) % sections.length;
+                    break;
+            }
+
+            if (nextIndex !== currentIndex && sections[nextIndex]) {
+                sections[nextIndex].focus();
+                e.preventDefault();
+            }
+        });
+
+        // Auto-focus first section for keyboard navigation
+        document.querySelector('.clickable').focus();
+
+        // Check if audio file exists on page load
+        window.addEventListener('load', () => {
+            // Small delay to let everything initialize
+            setTimeout(() => {
+                if (audio.readyState === 0) {
+                    showStatus("Place 'tarot.mp3' in same folder");
+                }
+            }, 1000);
+        });
 
     </script>
 </body>
