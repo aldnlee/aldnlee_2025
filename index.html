@@ -1,632 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Grid Layout</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Grid Layout</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #121212;
+      --section-bg: #0d0d0d;
+      --section-text: white;
+      --border-color: #3f3f3f;
+      --button-bg: transparent;
+      --button-hover-bg: white;
+      --button-hover-color: black;
+      --icon-border: white;
+      --icon-hover-bg: white;
+      --icon-hover-color: black;
+    }
+    @font-face {
+  font-family: 'TT Firs Neue Trl';
+  src: url('fonts/TT Firs Neue Trial Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
-        body {
-            font-family: 'TT Firs Neue Trl', sans-serif;
-            background: #000;
-            color: white;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    body.light-mode {
+      --bg-color: #f4f4f4;
+      --text-color: #000000;
+      --section-bg: #e0e0e0;
+      --section-text: #000000;
+      --border-color: #bbb;
+      --button-bg: transparent;
+      --button-hover-bg: #000000;
+      --button-hover-color: #ffffff;
+      --icon-border: #000000;
+      --icon-hover-bg: #000000;
+      --icon-hover-color: #ffffff;
+    }
 
-        .main-container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Section 1 - Top 35% */
-        .section-1 {
-            height: 35vh;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: url('bg-aldenlee.png') center/cover no-repeat;
-            height: 40vh;
-            display: flex;
-            align-items: stretch;
-            }
+    body {
+      font-family: 'TT Firs Neue Trl', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-     
-       
+    body {
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
 
-        /* Section 2 - Bottom 65% */
-        .section-2 {
-            height: 65vh;
-            display: flex;
-        }
+/* Setelah dimuat sepenuhnya */
+body.fade-in {
+    opacity: 1;
+}
 
-        /* Section 2 Left - 30% */
-        .section-2-left {
-            width: 30%;
-            background: #000;
-            border-bottom: 1px solid #3f3f3f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-            font-weight: thin;
-            position: relative;
-            overflow: hidden;
-        }
+    .main-container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-       
-        /* Section 2 Right - 70% */
-        .section-2-right {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-        }
+    .section-1 {
+      background: url('bg-aldenlee.png') center/cover no-repeat;
+      height: 40vh;
+      display: flex;
+      align-items: stretch;
+      position: relative;
+      cursor: pointer;
+    }
 
-        /* Right section divided into 3 equal parts vertically */
-        .right-section {
-            height: 33.333%;
-            background: #000;
-            border-left: 1px solid #3f3f3f;
-            border-bottom: 1px solid #3f3f3f;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            font-size: 1.3rem;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 0 20px 20px 20px;
-        }
+    .section-2 {
+      height: 60vh;
+      display: flex;
+    }
 
-     
+    .section-2-left {
+      width: 30%;
+      background: var(--section-bg);
+      color: var(--section-text);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
 
-        .right-section:hover {
-        }
+    .section-2-right {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .right-section-1 {
-        }
+    .right-section {
+      height: 33.333%;
+      background: var(--section-bg);
+      color: var(--section-text);
+      border-left: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 20px 20px 20px;
+    }
 
-        .right-section-1:hover {
-        }
+    .right-section .section-content {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
 
-        .right-section-2 {
-        }
+    .right-section span {
+      font-size: 1.9rem;
+      font-weight: lighter;
+    }
 
-        .right-section-2:hover {
-        }
+    .right-section-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
 
-        .right-section-3 {
-        }
+    .right-section-buttons a {
+      color: var(--section-text);
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      background: var(--button-bg);
+      transition: all 0.3s ease;
+    }
 
-        .right-section-3:hover {
-        }
+    .right-section-buttons a:hover {
+      background: var(--button-hover-bg);
+      color: var(--button-hover-color);
+    }
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .section-1 {
-                font-size: 1.5rem;
-            }
+    .right-section-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
 
-            .section-2 {
-                flex-direction: column;
-            }
+    .right-section-icons a {
+      color: var(--section-text);
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--icon-border);
+      border-radius: 50%;
+    }
 
-            .section-2-left {
-                width: 100%;
-                height: 40%;
-                font-size: 1.3rem;
-            }
+    .right-section-icons a:hover {
+      background: var(--icon-hover-bg);
+      color: var(--icon-hover-color);
+      transform: scale(1.1);
+    }
 
-            .section-2-right {
-                width: 100%;
-                height: 60%;
-                flex-direction: row;
-            }
+    .section-label {
+      display: block;
+      font-size: 0.8em;
+      opacity: 0.7;
+    }
 
-            .right-section {
-                height: 100%;
-                width: 33.333%;
-                font-size: 1.1rem;
-                padding: 0 10px 10px 10px;
-            }
+    /* Toggle buttons */
+    #musicToggle, #themeToggle {
+      position: fixed;
+      bottom: 20px;
+      z-index: 1000;
+      background: #fff;
+      color: #121212;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-            .right-section .section-content {
-                flex-direction: column;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
-            }
+    #musicToggle {
+      left: 20px;
+    }
 
-            .right-section-buttons {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 10px;
-                justify-content: center;
-            }
+    #themeToggle {
+      left: 80px;
+    }
 
-            .right-section-buttons a {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
+    #musicToggle.playing {
+      background: #4CAF50;
+      color: white;
+    }
 
-            .right-section-icons {
-                gap: 8px;
-                margin-top: 10px;
-                justify-content: center;
-            }
+    .audio-status {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-            .right-section-icons a {
-                width: 30px;
-                height: 30px;
-                font-size: 1rem;
-            }
+    .audio-status.show {
+      opacity: 1;
+    }
 
-            .right-section-buttons {
-                flex-direction: column;
-                gap: 10px;
-                margin-top: 15px;
-            }
+    @media (max-width: 768px) {
+      .section-2 {
+        flex-direction: column;
+      }
 
-            .right-section-icons {
-                gap: 10px;
-                margin-top: 15px;
-            }
+      .section-2-left,
+      .section-2-right {
+        width: 100%;
+      }
 
-            .right-section-icons a {
-                width: 35px;
-                height: 35px;
-                font-size: 1.2rem;
-            }
+      .section-2-left {
+        height: 30%;
+      }
 
-            .right-section .section-label {
-                text-align: center;
-                margin-top: 10px;
-            }
-        }
+      .section-2-right {
+        height: 70%;
+        flex-direction: row;
+      }
 
-        @media (max-width: 480px) {
-            .main-container {
-                flex-direction: column;
-            }
+      .right-section {
+        width: 33.333%;
+        height: 100%;
+        flex-direction: column;
+        padding: 10px;
+        text-align: center;
+        align-items: center;
+      }
+    }
 
-            .section-1 {
-                height: 20vh;
-                font-size: 1.2rem;
-            }
+    @media (max-width: 480px) {
+      .section-1 {
+        height: 20vh;
+      }
 
-            .section-2 {
-                height: 80vh;
-                flex-direction: column;
-            }
+      .section-2 {
+        height: 80vh;
+        flex-direction: column;
+      }
 
-            .section-2-left {
-                width: 100%;
-                height: 30%;
-                font-size: 1.1rem;
-            }
+      .section-2-left {
+        height: 30%;
+      }
 
-            .section-2-right {
-                width: 100%;
-                height: 70%;
-                flex-direction: column;
-            }
+      .section-2-right {
+        height: 70%;
+        flex-direction: column;
+      }
 
-            .right-section {
-                height: 33.333%;
-                width: 100%;
-                font-size: 1rem;
-                padding: 0 15px 15px 15px;
-            }
-
-            .right-section .section-content {
-                flex-direction: column;
-                text-align: center;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .right-section .section-label {
-                text-align: center;
-                margin-top: 10px;
-            }
-        }
-
-        /* Additional styling */
-        .section-content {
-            z-index: 1;
-            position: relative;
-            text-align: left;
-        }
-
-        .right-section .section-content {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: flex-end;
-            text-align: left;
-        }
-
-        .right-section-buttons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .right-section-buttons a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            background: transparent;
-        }
-
-        .right-section-buttons a:hover {
-            background: white;
-            color: black;
-        }
-
-        .right-section-icons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .right-section-icons a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border: 1px solid white;
-            border-radius: 50%;
-        }
-
-        .right-section-icons a:hover {
-            background: white;
-            color: black;
-            transform: scale(1.1);
-        }
-
-        .section-label {
-            display: block;
-            font-size: 0.8em;
-            opacity: 0.7;
-            margin-top: 10px;
-        }
-
-        .right-section .section-label {
-            margin-top: 0;
-            text-align: right;
-        }
-
-        /* Music effect */
- #musicToggle {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            transition: 0.3s ease;
-            box-shadow: 0 0 10px rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #musicToggle:hover {
-            background: #ddd;
-            transform: scale(1.05);
-        }
-
-        #musicToggle.playing {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .audio-status {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .audio-status.show {
-            opacity: 1;
-        }
-
-
-        @keyframes clickPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.3); }
-            100% { transform: scale(1); }
-        }
-    </style>
+      .right-section {
+        width: 100%;
+        height: 33.333%;
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="main-container">
-        <!-- Section 1 - Top 35% -->
-        <div class="section-1 clickable">
-            <div class="section-content">
-                <span></span>
-                <span class="section-label"></span>
-            </div>
-        </div>
-
-        <!-- Section 2 - Bottom 65% -->
-        <div class="section-2">
-            <!-- Section 2 Left - 30% -->
-            <div class="section-2-left clickable">
-                <div class="section-content">
-                    <span>Aldnlee</span>
-                    <span class="section-label"></span>
-                </div>
-            </div>
-
-            <!-- Section 2 Right - 70% (divided into 3 equal parts) -->
-            <div class="section-2-right">
-                <div class="right-section right-section-1 clickable">
-                    <div class="section-content">
-                        <span>Portfolio</span>
-                        <div class="right-section-buttons">
-                            <a href="#">Graphic Design ↗</a>
-                            <a href="#">Videography ↗</a>
-                            <a href="#">Photography ↗</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="right-section right-section-2 clickable">
-                    <div class="section-content">
-                        <span>About Me</span>
-                        <span class="section-label">Learn more about my background</span>
-                    </div>
-                </div>
-                <div class="right-section right-section-3 clickable">
-                    <div class="section-content">
-                        <span>Contact Me</span>
-                        <div class="right-section-icons">
-                            <a href="#" title="LinkedIn">in</a>
-                            <a href="#" title="GitHub">gh</a>
-                            <a href="#" title="Instagram">ig</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="main-container">
+    <div class="section-1 clickable">
+      <div class="section-content">
+        <span></span>
+        <span class="section-label"></span>
+      </div>
     </div>
 
-    <!-- YouTube music (hidden) -->
-<!-- Audio Status Display -->
-    <div id="audioStatus" class="audio-status">Click to enable audio</div>
+    <div class="section-2">
+      <div class="section-2-left clickable">
+        <div class="section-content">
+          <span>Aldnlee</span>
+        </div>
+      </div>
 
-    <!-- Music Toggle Button (Single instance) -->
-    <button id="musicToggle" title="Toggle Music">🔇</button>
+      <div class="section-2-right">
+        <div class="right-section clickable">
+          <div class="section-content">
+            <span>Portfolio</span>
+            <div class="right-section-buttons">
+              <a href="#">Graphic Design ↗</a>
+              <a href="#">Videography ↗</a>
+              <a href="#">Web Design ↗</a>
+            </div>
+          </div>
+        </div>
+        <div class="right-section clickable">
+          <div class="section-content">
+            <span>About Me</span>
+            <div class="right-section-buttons">
+              <a href="#">Explore ↗</a>
+            </div>
+          </div>
+        </div>
+        <div class="right-section clickable">
+          <div class="section-content">
+            <span>Contact Me</span>
+            <div class="right-section-icons">
+              <a href="#">in</a>
+              <a href="#">gh</a>
+              <a href="#">ig</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Demo Audio (placeholder - replace with your tarot.mp3) -->
-    <audio id="bgMusic" loop preload="auto">
-        <source src="tarot.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  <div id="audioStatus" class="audio-status">Click to enable audio</div>
+  <button id="musicToggle" title="Toggle Music">🔇</button>
+  <button id="themeToggle" title="Toggle Theme">🌞</button>
 
+  <audio id="bgMusic" loop preload="auto">
+    <source src="tarot.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 
-    <script>
-        // Add interactive functionality
-        document.querySelectorAll('.clickable').forEach((section, index) => {
-            section.addEventListener('click', (e) => {
-                console.log(`Clicked on ${e.target.closest('.clickable').querySelector('span').textContent}`);
-                
-                // Add click animation
-                section.classList.add('clicked');
-                setTimeout(() => {
-                    section.classList.remove('clicked');
-                }, 600);
-            });
+  <script>
+    const audio = document.getElementById("bgMusic");
+    const toggleBtn = document.getElementById("musicToggle");
+    const audioStatus = document.getElementById("audioStatus");
+    let isPlaying = false;
 
-            // Add keyboard support
-            section.setAttribute('tabindex', '0');
-            
-            section.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    section.click();
-                }
-            });
-        });
+    setTimeout(() => {
+      audioStatus.classList.add('show');
+      setTimeout(() => audioStatus.classList.remove('show'), 3000);
+    }, 1000);
 
-        // Add keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            const sections = document.querySelectorAll('.clickable');
-            const focused = document.activeElement;
-            const currentIndex = Array.from(sections).indexOf(focused);
-
-            let nextIndex = currentIndex;
-            
-            switch(e.key) {
-                case 'ArrowRight':
-                case 'ArrowDown':
-                    nextIndex = (currentIndex + 1) % sections.length;
-                    break;
-                case 'ArrowLeft':
-                case 'ArrowUp':
-                    nextIndex = (currentIndex - 1 + sections.length) % sections.length;
-                    break;
-            }
-
-            if (nextIndex !== currentIndex && sections[nextIndex]) {
-                sections[nextIndex].focus();
-                e.preventDefault();
-            }
-        });
-
-        // Auto-focus first section for keyboard navigation
-        document.querySelector('.clickable').focus();
-
-
-        // Music toggle functionality
-      // Audio and UI elements
-        const audio = document.getElementById("bgMusic");
-        const toggleBtn = document.getElementById("musicToggle");
-        const audioStatus = document.getElementById("audioStatus");
-        let isPlaying = false;
-
-        // Show initial status
-        setTimeout(() => {
-            audioStatus.classList.add('show');
-            setTimeout(() => audioStatus.classList.remove('show'), 3000);
-        }, 1000);
-
-        // Music toggle functionality
-        toggleBtn.addEventListener("click", async () => {
-            try {
-                if (isPlaying) {
-                    audio.pause();
-                    toggleBtn.textContent = "🔇";
-                    toggleBtn.classList.remove('playing');
-                    showStatus("Music paused");
-                    isPlaying = false;
-                } else {
-                    await audio.play();
-                    toggleBtn.textContent = "🔊";
-                    toggleBtn.classList.add('playing');
-                    showStatus("Music playing");
-                    isPlaying = true;
-                }
-            } catch (error) {
-                console.log("Audio playback failed:", error);
-                showStatus("Audio not available");
-                toggleBtn.textContent = "❌";
-            }
-        });
-
-        // Status message function
-        function showStatus(message) {
-            audioStatus.textContent = message;
-            audioStatus.classList.add('show');
-            setTimeout(() => audioStatus.classList.remove('show'), 2000);
+    toggleBtn.addEventListener("click", async () => {
+      try {
+        if (isPlaying) {
+          audio.pause();
+          toggleBtn.textContent = "🔇";
+          toggleBtn.classList.remove('playing');
+          showStatus("Music paused");
+          isPlaying = false;
+        } else {
+          await audio.play();
+          toggleBtn.textContent = "🔊";
+          toggleBtn.classList.add('playing');
+          showStatus("Music playing");
+          isPlaying = true;
         }
+      } catch (error) {
+        showStatus("Audio error");
+        toggleBtn.textContent = "❌";
+      }
+    });
 
-        // Audio event listeners
-        audio.addEventListener('loadstart', () => {
-            console.log('Audio loading started');
-        });
+    function showStatus(message) {
+      audioStatus.textContent = message;
+      audioStatus.classList.add('show');
+      setTimeout(() => audioStatus.classList.remove('show'), 5000);
+    }
 
-        audio.addEventListener('canplaythrough', () => {
-            console.log('Audio can play through');
-            showStatus("Play the Audio - for better experience :)");
-        });
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+      themeToggle.textContent = "🌚";
+    }
 
-        audio.addEventListener('error', (e) => {
-            console.log('Audio error:', e);
-            showStatus("Audio file not found");
-            toggleBtn.textContent = "❌";
-        });
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      if (document.body.classList.contains("light-mode")) {
+        localStorage.setItem("theme", "light");
+        themeToggle.textContent = "🌚";
+      } else {
+        localStorage.setItem("theme", "dark");
+        themeToggle.textContent = "🌞";
+      }
+    });
 
-        // Interactive functionality for sections
-        document.querySelectorAll('.clickable').forEach((section, index) => {
-            section.addEventListener('click', (e) => {
-                // Prevent event bubbling from buttons/links
-                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-                    return;
-                }
-                
-                console.log(`Clicked on ${e.target.closest('.clickable').querySelector('span').textContent}`);
-                
-                // Add click animation
-                section.classList.add('clicked');
-                setTimeout(() => {
-                    section.classList.remove('clicked');
-                }, 600);
 
-                // Try to start audio on first user interaction
-                if (!isPlaying && audio.readyState >= 2) {
-                    toggleBtn.click();
-                }
-            });
-
-            // Add keyboard support
-            section.setAttribute('tabindex', '0');
-            
-            section.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    section.click();
-                }
-            });
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            const sections = document.querySelectorAll('.clickable');
-            const focused = document.activeElement;
-            const currentIndex = Array.from(sections).indexOf(focused);
-
-            let nextIndex = currentIndex;
-            
-            switch(e.key) {
-                case 'ArrowRight':
-                case 'ArrowDown':
-                    nextIndex = (currentIndex + 1) % sections.length;
-                    break;
-                case 'ArrowLeft':
-                case 'ArrowUp':
-                    nextIndex = (currentIndex - 1 + sections.length) % sections.length;
-                    break;
-            }
-
-            if (nextIndex !== currentIndex && sections[nextIndex]) {
-                sections[nextIndex].focus();
-                e.preventDefault();
-            }
-        });
-
-        // Auto-focus first section for keyboard navigation
-        document.querySelector('.clickable').focus();
-
-        // Check if audio file exists on page load
-        window.addEventListener('load', () => {
-            // Small delay to let everything initialize
-            setTimeout(() => {
-                if (audio.readyState === 0) {
-                    showStatus("Place 'tarot.mp3' in same folder");
-                }
-            }, 1000);
-        });
-
-    </script>
+      // Tambahkan fade-in saat halaman dimuat
+  window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('fade-in');
+  });
+  </script>
 </body>
 </html>
