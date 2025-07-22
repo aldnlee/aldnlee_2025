@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Grid Layout</title>
+  <title>Aldnlee Portfolio</title>
+  <link rel="icon" href="dark-favicon.png" type="image/png">
   <style>
     :root {
-      --bg-color: #ffffff;
+      --bg-color: #0d0d0d;
       --text-color: #121212;
       --section-bg: #0d0d0d;
       --section-text: white;
@@ -18,12 +19,6 @@
       --icon-hover-bg: white;
       --icon-hover-color: black;
     }
-    @font-face {
-  font-family: 'TT Firs Neue Trl';
-  src: url('fonts/TT Firs Neue Trial Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
     body.light-mode {
       --bg-color: #f4f4f4;
@@ -51,21 +46,17 @@
       color: var(--text-color);
       min-height: 100vh;
       overflow-x: hidden;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
     }
 
-    body {
-    opacity: 0;
-    transition: opacity 1.2s ease-in-out;
-}
-
-/* Setelah dimuat sepenuhnya */
-body.fade-in {
-    opacity: 1;
-}
+    body.fade-in {
+      opacity: 1;
+    }
 
     .main-container {
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
@@ -171,13 +162,6 @@ body.fade-in {
       transform: scale(1.1);
     }
 
-    .section-label {
-      display: block;
-      font-size: 0.8em;
-      opacity: 0.7;
-    }
-
-    /* Toggle buttons */
     #musicToggle, #themeToggle {
       position: fixed;
       bottom: 20px;
@@ -197,13 +181,8 @@ body.fade-in {
       justify-content: center;
     }
 
-    #musicToggle {
-      left: 20px;
-    }
-
-    #themeToggle {
-      left: 80px;
-    }
+    #musicToggle { left: 20px; }
+    #themeToggle { left: 80px; }
 
     #musicToggle.playing {
       background: #4CAF50;
@@ -228,9 +207,11 @@ body.fade-in {
       opacity: 1;
     }
 
+    /* MOBILE ONLY FIX */
     @media (max-width: 768px) {
       .section-2 {
         flex-direction: column;
+        height: auto;
       }
 
       .section-2-left,
@@ -239,67 +220,87 @@ body.fade-in {
       }
 
       .section-2-left {
-        height: 30%;
+        height: auto;
+        font-size: 2.2rem;
+        justify-content: center;
+        padding: 1.5rem 0;
       }
 
       .section-2-right {
-        height: 70%;
-        flex-direction: row;
-      }
-
-      .right-section {
-        width: 33.333%;
-        height: 100%;
         flex-direction: column;
-        padding: 10px;
-        text-align: center;
-        align-items: center;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .section-1 {
-        height: 20vh;
-      }
-
-      .section-2 {
-        height: 80vh;
-        flex-direction: column;
-      }
-
-      .section-2-left {
-        height: 30%;
-      }
-
-      .section-2-right {
-        height: 70%;
-        flex-direction: column;
+        height: auto;
       }
 
       .right-section {
         width: 100%;
-        height: 33.333%;
-        padding: 15px;
+        height: auto;
+        padding: 1.5rem 1rem;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .right-section .section-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .right-section span {
+        font-size: 1.5rem;
+      }
+
+      .right-section-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .right-section-buttons a {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      .right-section-icons {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .right-section-icons a {
+        width: 36px;
+        height: 36px;
+        font-size: 1.2rem;
+      }
+
+      .main-container {
+        padding-bottom: 120px; /* space for buttons */
       }
     }
+
+    #typewriter {
+  border-right: 2px solid var(--section-text);
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: inherit;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: var(--section-text); }
+}
   </style>
 </head>
 <body>
   <div class="main-container">
-    <div class="section-1 clickable">
-      <div class="section-content">
-        <span></span>
-        <span class="section-label"></span>
-      </div>
-    </div>
-
+    <div class="section-1 clickable"></div>
     <div class="section-2">
       <div class="section-2-left clickable">
         <div class="section-content">
-          <span>Aldnlee</span>
+          <span id="typewriter">Aldnlee</span>
         </div>
       </div>
-
       <div class="section-2-right">
         <div class="right-section clickable">
           <div class="section-content">
@@ -332,16 +333,13 @@ body.fade-in {
       </div>
     </div>
   </div>
-
   <div id="audioStatus" class="audio-status">Click to enable audio</div>
   <button id="musicToggle" title="Toggle Music">🔇</button>
   <button id="themeToggle" title="Toggle Theme">🌞</button>
-
   <audio id="bgMusic" loop preload="auto">
     <source src="tarot.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
-
   <script>
     const audio = document.getElementById("bgMusic");
     const toggleBtn = document.getElementById("musicToggle");
@@ -380,7 +378,6 @@ body.fade-in {
       setTimeout(() => audioStatus.classList.remove('show'), 5000);
     }
 
-    // Theme toggle
     const themeToggle = document.getElementById("themeToggle");
     if (localStorage.getItem("theme") === "light") {
       document.body.classList.add("light-mode");
@@ -398,11 +395,35 @@ body.fade-in {
       }
     });
 
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
 
-      // Tambahkan fade-in saat halaman dimuat
-  window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('fade-in');
-  });
+    // Typewriter effect
+    const typeEl = document.getElementById("typewriter");
+const text = "Aldnlee";
+let index = 0;
+let isDeleting = false;
+
+function typeLoop() {
+  if (!isDeleting) {
+    typeEl.textContent = text.substring(0, index + 1);
+    index++;
+    if (index === text.length) {
+      setTimeout(() => { isDeleting = true; typeLoop(); }, 5000); // pause before deleting
+      return;
+    }
+  } else {
+    typeEl.textContent = text.substring(0, index - 1);
+    index--;
+    if (index === 0) {
+      isDeleting = false;
+    }
+  }
+  setTimeout(typeLoop, isDeleting ? 80 : 120);
+}
+
+typeLoop();
   </script>
 </body>
 </html>
