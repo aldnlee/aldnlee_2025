@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aldnlee Portfolio</title>
-  <link rel="icon" href="dark-favicon.png" type="image/png">
+  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/Ald.svg" />
   <style>
     :root {
       --bg-color: #0d0d0d;
@@ -313,9 +313,8 @@
           <div class="section-content">
             <span>Portfolio</span>
             <div class="right-section-buttons">
-              <a href="#">Graphic Design ↗</a>
-              <a href="#">Videography ↗</a>
-              <a href="#">Web Design ↗</a>
+              <a href="/html/gd.html">2025 Portfolio ↗</a>
+              <a href="https://aldnlee.github.io/">2022 Portfolio ↗</a>
             </div>
           </div>
         </div>
@@ -323,7 +322,7 @@
           <div class="section-content">
             <span>About Me</span>
             <div class="right-section-buttons">
-              <a href="#">Explore ↗</a>
+              <a href="/html/about-us.html">Explore ↗</a>
             </div>
           </div>
         </div>
@@ -340,7 +339,7 @@
       </div>
     </div>
   </div>
-  <div id="audioStatus" class="audio-status">Click to enable audio</div>
+  <div id="audioStatus" class="audio-status">Click to enable audio for better experience</div>
   <button id="musicToggle" title="Toggle Music">🔇</button>
   <button id="themeToggle" title="Toggle Theme">🌞</button>
   <audio id="bgMusic" loop preload="auto">
@@ -355,7 +354,7 @@
 
     setTimeout(() => {
       audioStatus.classList.add('show');
-      setTimeout(() => audioStatus.classList.remove('show'), 3000);
+      setTimeout(() => audioStatus.classList.remove('show'), 8000);
     }, 1000);
 
     toggleBtn.addEventListener("click", async () => {
